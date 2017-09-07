@@ -1,0 +1,427 @@
+<h1><a href="http://www.dropzonejs.com/">Dropzone.js</a> &amp; <a href="https://github.com/ncuesta/dropzonejs-rails">Dropzone.js Rails</a></h1>
+
+<div>
+  <h2> What is Dropzone.js? </h2>
+
+  <p> *From Dropzone's website
+    <ul>
+      <li> open source library that provides drag’n’drop file uploads with image previews </li>
+      <li> lightweight </li>
+      <li> doesn’t depend on any other library like jQuery </li>
+      <li> highly customizable </li>
+    </ul>
+  </p>
+</div>
+
+<div>
+  <h2> Installation </h2>
+
+  <ul>
+    <li> in Gemfile:
+      <ul>
+        <li> gem 'dropzonejs-rails' </li>
+      </ul>
+    </li>
+    <li> in application.js:
+      <ul>
+        <li> //= require dropzone </li>
+      </ul>
+    </li>
+    <li> in application.css (optional):
+      <ul>
+        <li> *= require dropzone/basic </li>
+        <li> *= require dropzone/dropzone </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <h2> The most basic </h2>
+  <xmp>
+    <form action="/file-upload"
+          class="dropzone"
+          id="my-awesome-dropzone">
+    </form>
+  </xmp>
+
+  <form action="/file-upload"
+        class="dropzone"
+        id="my-awesome-dropzone">
+  </form>
+</div>
+
+<div>
+  <h2> Fallback </h2>
+  <xmp>
+    <form action="/file-upload" class="dropzone">
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+    </form>
+  </xmp>
+
+  <form action="/file-upload" class="dropzone">
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2> Programmatically </h2>
+  <xmp>
+    // .js file
+    // javascript
+    $(function() {
+      var myDropzone = new Dropzone("div#my-created-dropzone", { url: "/file/post"});
+    });
+
+    // or use jQuery
+    $("div#my-created-dropzone").dropzone({ url: "/file/post" });
+
+    <div id="my-created-dropzone"
+         style="height: 100px; width: 100%; border: 2px solid rgba(0, 0, 0, 0.3)">
+    </div>
+  </xmp>
+
+  <div id="my-created-dropzone"
+       style="height: 100px; width: 100%; border: 2px solid rgba(0, 0, 0, 0.3)">
+  </div>
+</div>
+
+<div>
+  <h2> Configuration </h2>
+  <xmp>
+    // .js file
+    // "myConfiguredDropzone" is the camelized version of the HTML element's ID
+    Dropzone.options.myConfiguredDropzone = {
+      url: "/file/post",
+    };
+
+    <div id="my-configured-dropzone" class="dropzone">
+    </div>
+  </xmp>
+
+  <div id="my-configured-dropzone" class="dropzone">
+  </div>
+</div>
+
+<div>
+  <h2> Useful Configurations </h2>
+  <p> Options
+    <ul>
+      <li> maxFiles </li>
+      <li> maxFilesize </li>
+      <li> clickable </li>
+      <li> addRemoveLinks </li>
+      <li> dictDefaultMessage </li>
+      <li> previewTemplate </li>
+    </ul>
+  </p>
+  <p> Functions
+    <ul>
+      <li> init </li>
+      <li> accept </li>
+    </ul>
+  </p>
+</div>
+
+<div>
+  <h2> Disable auto discovery </h2>
+  <xmp>
+    // Prevent Dropzone from auto discovering this element:
+    Dropzone.options.myAwesomeDropzone = false;
+
+    // This is useful when you want to create the
+    // Dropzone programmatically later
+
+    // Disable auto discover for all elements:
+    Dropzone.autoDiscover = false;
+  </xmp>
+</div>
+
+<div>
+  <h2> Default Dropzone Template </h2>
+
+  <xmp>
+    <div class="dz-preview dz-file-preview">
+      <div class="dz-details">
+        <div class="dz-filename"><span data-dz-name></span></div>
+        <div class="dz-size" data-dz-size></div>
+        <img data-dz-thumbnail />
+      </div>
+      <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+      <div class="dz-success-mark"><span>✔</span></div>
+      <div class="dz-error-mark"><span>✘</span></div>
+      <div class="dz-error-message"><span data-dz-errormessage></span></div>
+    </div>
+  </xmp>
+
+  <div>
+    <ul>
+      <li> to overwrite the default template, use the previewTemplate config option </li>
+      <li> use elements with the data-dz-* attributes - by default, Dropzone will look for these elements and update the content </li>
+    </ul>
+  </div>
+</div>
+
+<div>
+  <h2> Prettified </h2>
+  <xmp>
+    // .js file
+    Dropzone.options.myPrettifiedDropzone = {
+      url: "/file/post",
+      addRemoveLinks: true,
+      accept: function(file, done) {
+        $("div#my-prettified-dropzone").css({"height": "auto"});
+        done();
+      }
+    };
+
+    <div id="my-prettified-dropzone"
+         class="dropzone"
+         style="border: 2px dashed rgba(0, 0, 0, 0.3);
+                min-height: 100px !important;">
+      <div class="dz-message"
+           style="margin: 20px">
+        Drag your cats' pics here! Or
+        <button>
+          select files
+        </button>
+      </div>
+    </div>
+  </xmp>
+
+  <div id="my-prettified-dropzone"
+       class="dropzone"
+       style="border: 2px dashed rgba(0, 0, 0, 0.3);
+              min-height: 100px !important;">
+    <div class="dz-message"
+         style="margin: 20px">
+      Drag your cats' pics here! Or
+      <button>
+        select files
+      </button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2> Add DZ to an Existing RoR Form </h2>
+
+  <div>
+    <ul>
+      <li> Can DZ be dropped directly in the form? </li>
+      <li> Issues?
+        <ul>
+          <li> DZ itself is a form (&amp; we cannot have nested forms)
+            <ul>
+              <li> Can we use main form’s post call? </li>
+            </ul>
+          </li>
+          <li> Dropped files are not binded to the main form </li>
+        </ul>
+      </li>
+      <li> Workaround
+        <ul>
+          <li> Use DZ’s post call instead of the main form’s
+            <ul>
+              <li> Remove POST url from main form
+                <xmp>
+<%%= form_for :myDropzoneForm, html: {id: "dropzone-form-id"} do |f| %>
+                </xmp>
+              </li>
+              <li> Doesn’t matter really, since it’s not going to be called </li>
+              <li> Add POST url to DZ
+                <xmp>
+...
+url: "/welcome/create",
+...
+                </xmp>
+              </li>
+            </ul>
+          </li>
+          <li> Put files in a queue when dropped (delay processing)
+            <xmp>
+// .js file
+...
+autoProcessQueue: false,
+
+// upload multiple files
+uploadMultiple: true,
+...
+            </xmp>
+          </li>
+          <li> Submit main form
+            <ul>
+              <li> Stop main form from calling its post call &amp; process/upload the files in queue
+                <xmp>
+// .js file
+...
+init: function() {
+  var myDropzone = this;
+
+  var form = document.getElementById('dropzone-form-id');
+  form.addEventListener('submit', function(event) {
+    ...
+    if(myDropzone.getQueuedFiles().length > 0){
+      event.preventDefault();
+      event.stopPropagation();
+      myDropzone.processQueue();
+    }
+    ...
+  })
+  ...
+},
+...
+                </xmp>
+              </li>
+              <li> Assign the main form’s data to DZ’s form
+                <xmp>
+// .js file
+...
+init: function() {
+  var myDropzone = this;
+  …
+  // if uploadMultiple is false, use “sending” event instead
+  myDropzone.on("sendingmultiple", function(file, xhr, formData) {
+    formData.append("title", $('#myDropzoneForm_title').val());
+    formData.append("text", $('#myDropzoneForm_text').val());
+  });
+  ...
+},
+...
+                </xmp>
+              </li>
+              <li> Access Form Data in Controller (via POST call)
+                <xmp>
+// controller.rb file
+...
+  def create
+    # params will contain the form’s data
+    # do what you want with the data here
+    render plain: params.inspect
+  end
+...
+                </xmp>
+              </li>
+              <li> Redirect in DZ after successful
+                <xmp>
+// .js file
+...
+init: function() {
+  ...
+},
+
+// if uploadMultiple is false, use “success” instead
+successmultiple: function(data,response) {
+  alert(response);
+  // redirect here
+}
+...
+                </xmp>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <h3> Full code example </h3>
+    <xmp>
+      // .js file
+      Dropzone.options.filesField = {
+        url: "/welcome/create",
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        accept: function(file, done) {
+          $("div#files-field").css({"height": "auto"});
+          done();
+        },
+        init: function() {
+          var myDropzone = this;
+
+          var form = document.getElementById('dropzone-form-id');
+          form.addEventListener('submit', function(event) {
+            // stop the form's submit event
+            if(myDropzone.getQueuedFiles().length > 0){
+              event.preventDefault();
+              event.stopPropagation();
+              myDropzone.processQueue();
+            }
+          });
+
+          myDropzone.on("sendingmultiple", function(file, xhr, formData) {
+            formData.append("title", $('#myDropzoneForm_title').val());
+            formData.append("text", $('#myDropzoneForm_text').val());
+          });
+        },
+        successmultiple: function(data,response) {
+          alert(response);
+        }
+      };
+
+      <%%= form_for :myDropzoneForm, html: {id: "dropzone-form-id"} do |f| %>
+        <p>
+          <%%= f.label :title %><br>
+          <%%= f.text_field :title %>
+        </p>
+
+        <p>
+          <%%= f.label :text %><br>
+          <%%= f.text_area :text %>
+        </p>
+
+        <div id="files-field"
+             class="dropzone"
+             style="border: 2px dashed rgba(0, 0, 0, 0.3);
+                    min-height: 100px !important;">
+          <div class="dz-message"
+               style="margin: 20px">
+            Drag your cats' pics here! Or
+            <button>
+              select files
+            </button>
+          </div>
+        </div>
+
+        <p>
+          <%%= f.submit %>
+        </p>
+      <%% end %>
+    </xmp>
+  </div>
+
+  <%= form_for :myDropzoneForm, html: {id: "dropzone-form-id"} do |f| %>
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </p>
+
+    <p>
+      <%= f.label :text %><br>
+      <%= f.text_area :text %>
+    </p>
+
+    <div id="files-field"
+         class="dropzone"
+         style="border: 2px dashed rgba(0, 0, 0, 0.3);
+                min-height: 100px !important;">
+      <div class="dz-message"
+           style="margin: 20px">
+        Drag your cats' pics here! Or
+        <button>
+          select files
+        </button>
+      </div>
+    </div>
+
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>
